@@ -1,0 +1,153 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html{
+    font-size: 62.5%;
+}
+body{
+    font-size: 1.6rem;
+}
+input, select{
+    border-radius: 5px;
+    border-width: 1px;
+}
+#dateAppo, #timeAppo {
+    width: 14rem;
+    text-align: center;
+}
+#timeAppo {
+    pointer-events: none;
+}
+td{
+    cursor:default;
+}
+.disable {
+    pointer-events: none;
+    opacity: 50%;
+}
+.show{
+    display: block;
+}
+.selected {
+    background-color: #007bff;
+    background-color: orange;
+}
+nav .navbar-brand, nav .navbar-toggler  {
+    font-size: 2rem;
+}
+.form-inline{
+    gap: 2rem;
+}
+input[type="search"]{
+     outline-offset: 0;
+     padding: 1px; 
+}
+.btn-search, .btn-clean{
+    border: none;
+    color: white;
+    background-color: #007bff;
+}
+.bi-search:hover, .bi-x-lg:hover {
+    position: relative;
+    color: orange;
+    font-size: 1.8rem;
+}
+.nav-item{
+    text-align: center;
+}
+.navbar .navbar-brand{
+    color: white;
+}
+.navbar-light .navbar-brand:hover {
+    color: white;
+    pointer-events: none;
+}
+.bi-calendar3 {
+    font-size: 2rem;
+}
+.calendar-container{
+    width: 30rem;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    border-radius: 2rem 0 0 0;
+}
+.calendar-container input{
+    height: 3rem;
+}
+.content-appo{
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+}
+.hours {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+.hours span{
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    width: 10rem;
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem;
+    border-style: solid;
+    border-width: 0px 5px 5px 0;
+    border-color: rgb(46, 46, 243);
+    
+}
+.hours span:hover{
+    cursor: pointer;
+    box-shadow: 3px 3px 5px black;
+    position: relative;
+    bottom: 2px;
+    right: 2px;
+}
+.main{
+    display: flex;
+}
+.formCenso {
+    width: 30rem;
+    margin: 0 auto;
+    margin-top: 4rem;
+}
+.formRow {
+    display: flex;
+    flex-direction: column;
+}
+.formButtons{
+    display: flex;
+    gap: 2rem;
+}
+.button {
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    height: 4rem;
+    margin: 0 auto;
+    margin-top: 2rem;
+    font-weight: bold;
+}
+.alert{
+    margin-top: 2rem;
+    text-align: center;
+}
+.modal, .modal-title, .btn{
+    font-size: 1.6rem;
+}
+.modal{
+    padding: 0 2rem;
+}
+.modal-body{
+    overflow: auto;
+    max-height: 70vh;
+}
