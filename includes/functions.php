@@ -46,6 +46,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 $search = searchInformation($filter,$textFilter);
                 convertToJson($search);
                 break;
+            case 5:
+                $date = $_POST['date'];
+                $time = $_POST['time'];
+                $find = findHours($date,$time);
+                convertToJson($find);
+                break;
         }
     
 }
@@ -112,6 +118,19 @@ function searchInformation($filter,$textFilter){
             $rows[] = false;
         }
         return $rows;
+    } catch (\Throwable $th) {
+        echo "<pre>";
+        var_dump($th);
+        echo "</pre>";
+    }
+}
+function findHours($date,$hour){
+    try {
+        require connection();
+        $sql = "SELECT timeAppo FROM appointments WHERE dateAppo = '$date' AND timeAppo = '$hour';";
+        $query = mysqli_query($dataBase,$sql);
+        $answer = $query -> num_rows > 0 ? true : false;
+        return $answer;
     } catch (\Throwable $th) {
         echo "<pre>";
         var_dump($th);

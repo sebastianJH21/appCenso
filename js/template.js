@@ -12,27 +12,9 @@ function validatedForm() {
             }, false);
         });
 };
-// (function () {
-//     'use strict';
-//     document.querySelector('#save').addEventListener('click', function () {
-//         // Fetch all the forms we want to apply custom Bootstrap validation styles to
-//         var forms = document.getElementsByClassName('formCenso');
-//         // Loop over them and prevent submission
-//         var validation = Array.prototype.filter.call(forms, function (form) {
-//             form.addEventListener('submit', function (event) {
-//                 if (form.checkValidity() === false) {
-//                     event.preventDefault();
-//                     event.stopPropagation();
-//                 }
-//                 form.classList.add('was-validated');
-//             }, false);
-//         });
-//     }, false);
-// })();
 let selectRow = null;
 document.querySelector('.table').addEventListener('click', function (event) {
     let rows = document.getElementsByTagName('tr')
-    console.log(rows)
     for (let i = 0; i < rows.length; i++) {
         rows[i].classList.remove('selected')
     }
@@ -55,6 +37,8 @@ document.querySelector('.table').addEventListener('dblclick', function () {
         document.querySelector('#save').classList.add('disable')
         document.querySelector('#edit').classList.remove('disable')
         document.querySelector('#delete').classList.remove('disable')
+        
+        templateHourJob();
     }
 })
 
@@ -76,7 +60,8 @@ function templateHourJob() {
     let hourInitial = 8; //8:00 am
     let hourClosed;
     let templateHours = "";
-    let dateAppo = new Date(document.querySelector('#dateAppo').value);
+    let date = document.querySelector('#dateAppo').value;
+    let dateAppo = new Date(date);
     if (dateAppo.getDay() <= 4) {
         hourClosed = 17;
     } else if (dateAppo.getDay() === 5) {
@@ -88,19 +73,35 @@ function templateHourJob() {
         `
     }
     document.querySelector('.hours').innerHTML = templateHours;
-
     document.querySelectorAll('.hour').forEach(function (hour) {
+        hour.classList.remove('disable');
+        let time = parseInt(hour.textContent);
+        if (time < 6) {
+            time = `${(time + 12).toString().padStart(2, '0')}:00`
+        } else {
+            time = hour.textContent.substring(0, 5)
+        }
         hour.addEventListener('click', function () {
-            let time = parseInt(hour.textContent);
-            if (time < 6) {
-                time = `${(time + 12).toString().padStart(2, '0')}:00`
-            } else {
-                time = hour.textContent.substring(0, 5)
-            }
             document.querySelector('#timeAppo').value = time;
+        })
+        $.ajax({
+            url: 'includes/functions.php',
+            type: 'POST',
+            data: {
+                "function": 5,
+                "date": date,
+                "time": time
+            },
+            success:function(response){
+                let answer = JSON.parse(response)
+                if(answer){
+                    hour.classList.add('disable');
+                }
+            }
         })
     })
 }
+
 function alertMsg(process) {
     let message = process ? "Process Successful" : "Process Unsuccessful"
     let type = process ? "success" : "danger"
@@ -112,7 +113,7 @@ function alertMsg(process) {
     document.querySelector('.alterMsg').innerHTML = template;
     setTimeout(() => {
         document.querySelector('.alert').remove();
-    }, 3000);
+    }, 5000);
 }
 
 
